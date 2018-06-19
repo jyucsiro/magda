@@ -8,10 +8,14 @@ metadata:
   name: kn-ingress
 spec:
   rules:
-  - host: {{ .Values.hostname }}.k8s-dev.oznome.csiro.au
+  - host: {{ .Values.global.externalUrl }}
     http:
       paths:
       - backend:
           serviceName: gateway
           servicePort: 80
         path: /
+  tls:
+   - secretName: {{ .Values.global.tls-secret }}
+     hosts:
+     - {{ .Values.global.externalUrl }}
